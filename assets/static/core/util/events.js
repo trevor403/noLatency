@@ -54,7 +54,8 @@ function _captureProxy(e) {
 
 // Follow cursor style of target element
 function _capturedElemChanged() {
-    const proxyElem = document.getElementById("noVNC_mouse_capture_elem");
+    const proxyElem = document.getElementById("mouse_capture_elem");
+    // this line actually does something! during drag events it masks the mouse cursor
     proxyElem.style.cursor = window.getComputedStyle(document.captureElement).cursor;
 }
 
@@ -74,11 +75,11 @@ export function setCapture(target) {
         // called multiple times without coordination
         releaseCapture();
 
-        let proxyElem = document.getElementById("noVNC_mouse_capture_elem");
+        let proxyElem = document.getElementById("mouse_capture_elem");
 
         if (proxyElem === null) {
             proxyElem = document.createElement("div");
-            proxyElem.id = "noVNC_mouse_capture_elem";
+            proxyElem.id = "mouse_capture_elem";
             proxyElem.style.position = "fixed";
             proxyElem.style.top = "0px";
             proxyElem.style.left = "0px";
@@ -133,7 +134,7 @@ export function releaseCapture() {
 
         _captureObserver.disconnect();
 
-        const proxyElem = document.getElementById("noVNC_mouse_capture_elem");
+        const proxyElem = document.getElementById("mouse_capture_elem");
         proxyElem.style.display = "none";
 
         window.removeEventListener('mousemove', _captureProxy);

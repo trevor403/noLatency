@@ -341,10 +341,13 @@ void PtrAddEvent(int buttonMask, int x, int y) {
         CFRelease(mouseEvent);
     }
     else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         CGPostMouseEvent(position, TRUE, 3,
                 (buttonMask & (1 << 0)) ? TRUE : FALSE,
                 (buttonMask & (1 << 2)) ? TRUE : FALSE,
                 (buttonMask & (1 << 1)) ? TRUE : FALSE);
+#pragma clang diagnostic pop
     }
 }
 

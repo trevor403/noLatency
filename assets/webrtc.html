@@ -755,6 +755,7 @@ class TSD extends TSDBase {
         this._canvas.width = 0;
         this._canvas.height = 0;
         this._canvas.tabIndex = -1;
+        this._canvas.contentEditable = true;
         this._screen.appendChild(this._canvas);
 
         this._stream = document.createElement('video');
@@ -781,6 +782,12 @@ class TSD extends TSDBase {
 
         this._keyboard = new Keyboard(this._canvas);
         this._keyboard.onkeyevent = this._handleKeyEvent.bind(this);
+
+        // this._canvas.addEventListener('paste', (event) => {
+        //     let paste = (event.clipboardData || window.clipboardData).getData('text');
+        //     console.log("pasted");
+        //     event.preventDefault();
+        // });
     }
 
     _sendKey(keysym, code, down) {
