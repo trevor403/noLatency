@@ -358,7 +358,6 @@ void PtrAddEvent(int buttonMask, int x, int y) {
 import "C"
 
 import (
-	"encoding/json"
 	"os"
 
 	"github.com/trevor403/gostream/pkg/input"
@@ -376,22 +375,6 @@ func init() {
 	ret = C.ScreenInit()
 	if !bool(ret) {
 		panic("screen init failed")
-	}
-}
-
-func Handle(data []byte) {
-	raw := input.RawEvent{}
-	_ = json.Unmarshal(data, &raw)
-
-	switch raw.Type {
-	case input.KeyEventType:
-		ev := input.KeyEvent{}
-		json.Unmarshal(data, &ev)
-		HandleKey(ev)
-	case input.MouseEventType:
-		ev := input.MouseEvent{}
-		json.Unmarshal(data, &ev)
-		HandlePtr(ev)
 	}
 }
 
